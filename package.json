@@ -1,0 +1,42 @@
+{
+  "name": "team-board",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev": "dotenvx run -- concurrently -k -n CLIENT,SERVER -p \"[{name}]\" \"npm:dev -w client\" \"npm:dev -w server\"",
+    "build": "dotenvx run -- concurrently -k -n CLIENT,SERVER -p \"[{name}]\" \"npm:build -w client\" \"npm:build -w server\"",
+    "start": "dotenvx run -- npm run start -w server",
+    "clean": "rimraf client/dist server/dist",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "lint:fix": "npm run lint -- --fix",
+    "format": "prettier . --check",
+    "format:write": "prettier . --write"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,css,html}": [
+      "prettier --write"
+    ]
+  },
+  "devDependencies": {
+    "@dotenvx/dotenvx": "^1.51.0",
+    "@typescript-eslint/eslint-plugin": "^8.46.0",
+    "@typescript-eslint/parser": "^8.46.0",
+    "concurrently": "^9.0.0",
+    "eslint": "^9.37.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^6.1.1",
+    "prettier": "^3.6.2",
+    "rimraf": "^5.0.5"
+  }
+}
